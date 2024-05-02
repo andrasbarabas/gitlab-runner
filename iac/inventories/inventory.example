@@ -1,0 +1,2 @@
+[gitlab_runner_hosts]
+node_1 ansible_host=<hostname_or_ip_address> ansible_port=<remote_port> ansible_user=<remote_user>

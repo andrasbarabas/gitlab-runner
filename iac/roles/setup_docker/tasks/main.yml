@@ -1,0 +1,39 @@
+---
+- name: Add Docker GPG apt Key
+  ansible.builtin.apt_key:
+    url: "https://download.docker.com/linux/{{ ansible_distribution | lower }}/gpg"
+    state: present
+
+- name: Add Docker Repository
+  ansible.builtin.apt_repository:
+    repo: "deb https://download.docker.com/linux/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} stable"
+    state: present
+
+- name: Update apt and install docker-ce
+  ansible.builtin.apt:
+    name: docker-ce
+    state: present
+    update_cache: true
+
+- name: Ensure Docker is started
+  ansible.builtin.service:
+    name: docker
+    state: started
+    enabled: true
+
+- name: Enable docker.service
+  ansible.builtin.systemd:
+    name: docker.service
+    daemon_reload: true
+    enabled: true
+
+- name: Create "docker" group
+  ansible.builtin.group:
+    name: "{{ setup_docker_docker_group }}"
+    state: present
+
+- name: Add remote user to "docker" group
+  ansible.builtin.user:
+    name: "{{ ansible_ssh_user }}"
+    groups: "{{ setup_docker_docker_group }}"
+    append: true

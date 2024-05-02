@@ -1,0 +1,6 @@
+---
+register_runner_runner_authentication_token: "{{ RUNNER_AUTHENTICATION_TOKEN }}"
+register_runner_runner_docker_image: alpine:latest
+register_runner_runner_docker_volumes: /certs/client
+register_runner_runner_executor: docker
+register_runner_runner_register_url: https://gitlab.com

@@ -1,0 +1,9 @@
+---
+- name: Register runner
+  hosts: gitlab_runner_hosts
+  become: true
+  roles:
+    - register_runner
+  vars_files:
+    - ../vars/main.yml
+    - ../roles/register_runner/vars/main.yml

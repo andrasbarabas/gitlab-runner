@@ -1,0 +1,5 @@
+.env*
+!.env
+
+iac/inventories/*
+!iac/inventories/inventory.example

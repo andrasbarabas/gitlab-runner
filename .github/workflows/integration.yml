@@ -1,0 +1,22 @@
+name: Integration
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  Integration:
+    runs-on: ubuntu-latest
+
+    services:
+      docker:
+        image: docker:19.03.12
+        options: --privileged
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Run test Make target via Docker
+      run: make test
