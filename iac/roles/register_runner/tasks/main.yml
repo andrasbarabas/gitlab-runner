@@ -16,10 +16,15 @@
     --docker-privileged
     --docker-volumes {{ register_runner_runner_docker_volumes }}
     --limit 4
-    --concurrent 4
   become: true
   register: registration_output
   changed_when: true
+
+- name: Set concurrent jobs in config.toml
+  ansible.builtin.lineinfile:
+    path: /etc/gitlab-runner/config.toml
+    regexp: '^concurrent = .*'
+    line: 'concurrent = 4'
 
 - name: Verify GitLab Runner connection
   become: true
